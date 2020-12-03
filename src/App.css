@@ -1,0 +1,6 @@
+th {
+  border-style: dotted dashed none none;
+}
+.head:hover{
+  cursor: pointer;
+}
