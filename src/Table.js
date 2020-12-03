@@ -25,7 +25,7 @@ class Table extends React.Component {
     const { data } = this.props;
     this.setState({
       list: data.map((elem) => (
-        <tr key={elem.id}>
+        <tr>
           <th>{elem.id}</th>
           <th>{elem.firstName}</th>
           <th>{elem.lastName}</th>
