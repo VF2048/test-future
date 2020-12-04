@@ -22,22 +22,33 @@ class Table extends React.Component {
   }
 
   list() {
+    const { select } = this.props;
     const { data } = this.props;
+    const tables = [];
+    const sizeP = 32;
+    for (let i = 0; i < Math.ceil(data.length / sizeP); i++) {
+      tables.push(
+        data.slice(i * sizeP, i * sizeP + sizeP).map((elem) => (
     this.setState({
       list: data.map((elem) => (
         <tr>
-          <th>{elem.id}</th>
-          <th>{elem.firstName}</th>
-          <th>{elem.lastName}</th>
-          <th>{elem.email}</th>
-          <th>{elem.phone}</th>
-          {/* <th>{`${elem.address.streetAddress},
+            <th>{elem.id}</th>
+            <th>{elem.firstName}</th>
+            <th>{elem.lastName}</th>
+            <th>{elem.email}</th>
+            <th>{elem.phone}</th>
+            {/* <th>{`${elem.address.streetAddress},
                 ${elem.address.city},
                 ${elem.address.state},
                 ${elem.address.zip}`}</th>
             <th>{elem.description}</th> */}
-        </tr>
-      )),
+          </tr>
+        )),
+      );
+    }
+    this.setState({
+      list: tables,
+      table: <tbody>{tables[0]}</tbody>,
     });
   }
 
@@ -72,39 +83,61 @@ class Table extends React.Component {
     this.list();
   }
 
+  select(i) {
+    const { list } = this.state;
+    this.setState({
+      table: <tbody>{list[i]}</tbody>,
+    });
+  }
+
   render() {
     const { list } = this.state;
     const { navigate } = this.state;
+    const { table } = this.state;
+    const pagination = [];
+    if (list !== undefined) {
+      for (let i = 0; i < list.length; i++) {
+        // table.push(<tbody>{list[i]}</tbody>);
+        pagination.push(
+          <button type="button" onClick={() => this.select(i)}>
+            {i + 1}
+          </button>,
+        );
+      }
+    }
     return (
-      <table>
-        <thead>
-          <tr>
-            <th className="head" onClick={() => this.sorting('id')}>
-              id
-              {navigate.id}
-            </th>
-            <th className="head" onClick={() => this.sorting('firstName')}>
-              firstName
-              {navigate.firstName}
-            </th>
-            <th className="head" onClick={() => this.sorting('lastName')}>
-              lastName
-              {navigate.lastName}
-            </th>
-            <th className="head" onClick={() => this.sorting('email')}>
-              email
-              {navigate.email}
-            </th>
-            <th className="head" onClick={() => this.sorting('phone')}>
-              phone
-              {navigate.phone}
-            </th>
-            {/* <th>address</th>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th className="head" onClick={() => this.sorting('id')}>
+                id
+                {navigate.id}
+              </th>
+              <th className="head" onClick={() => this.sorting('firstName')}>
+                firstName
+                {navigate.firstName}
+              </th>
+              <th className="head" onClick={() => this.sorting('lastName')}>
+                lastName
+                {navigate.lastName}
+              </th>
+              <th className="head" onClick={() => this.sorting('email')}>
+                email
+                {navigate.email}
+              </th>
+              <th className="head" onClick={() => this.sorting('phone')}>
+                phone
+                {navigate.phone}
+              </th>
+              {/* <th>address</th>
             <th>description</th> */}
-          </tr>
-        </thead>
-        <tbody>{list}</tbody>
-      </table>
+            </tr>
+          </thead>
+          {table}
+        </table>
+        {pagination}
+      </div>
     );
   }
 }
