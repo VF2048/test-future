@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Table from './Table';
+import Selected from './Selected';
 
 class App extends React.Component {
   constructor(props) {
@@ -24,12 +25,20 @@ class App extends React.Component {
       .then((json) => this.setState({ data: json }));
   };
 
+  select = (elem) => {
+    this.setState({
+      selected: elem,
+    });
+  };
+
   render() {
     const { data } = this.state;
+    const { selected } = this.state;
     if (data) {
       return (
         <div>
-          <Table data={data} />
+          <Table data={data} select={this.select} />
+          <Selected selected={selected} />
         </div>
       );
     }

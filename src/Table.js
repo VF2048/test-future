@@ -29,9 +29,7 @@ class Table extends React.Component {
     for (let i = 0; i < Math.ceil(data.length / sizeP); i++) {
       tables.push(
         data.slice(i * sizeP, i * sizeP + sizeP).map((elem) => (
-    this.setState({
-      list: data.map((elem) => (
-        <tr>
+          <tr onClick={() => select(elem)}>
             <th>{elem.id}</th>
             <th>{elem.firstName}</th>
             <th>{elem.lastName}</th>
@@ -142,10 +140,11 @@ class Table extends React.Component {
   }
 }
 
-Table.defaultProps = { data: [] };
+Table.defaultProps = { data: [], select: () => {} };
 
 Table.propTypes = {
   data: PropTypes.objectOf(),
+  select: PropTypes.func,
 };
 
 export default Table;
