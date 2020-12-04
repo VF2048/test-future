@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Table from './Table';
 import Selected from './Selected';
+import Addition from './Addition';
 
 class App extends React.Component {
   constructor(props) {
@@ -31,12 +32,20 @@ class App extends React.Component {
     });
   };
 
+  add = (elem) => {
+    const { data } = this.state;
+    this.setState({
+      data: [elem].concat(data),
+    });
+  };
+
   render() {
     const { data } = this.state;
     const { selected } = this.state;
     if (data) {
       return (
         <div>
+          <Addition add={this.add} />
           <Table data={data} select={this.select} />
           <Selected selected={selected} />
         </div>

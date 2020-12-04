@@ -22,6 +22,8 @@ module.exports = {
       },
     ],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'no-plusplus': [2, { allowForLoopAfterthoughts: true }]
+    'no-plusplus': [2, { allowForLoopAfterthoughts: true }],
+    'operator-linebreak': [2, 'after', { overrides: { '?': 'after' } }],
   },
+  parser: 'babel-eslint',
 };
