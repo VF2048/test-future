@@ -139,7 +139,7 @@ class Table extends React.Component {
       <div>
         <input
           ref={this.input}
-          onChange={(e) => {
+          onBlur={(e) => {
             if (!newData) this.filtration(e.target.value);
           }}
         />
@@ -151,7 +151,7 @@ class Table extends React.Component {
         >
           Найти
         </button>
-        <table>
+        <table className="ascii-table">
           <thead>
             <tr>
               <th className="head" onClick={() => this.sorting('id')}>

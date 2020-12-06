@@ -11,6 +11,7 @@ class App extends React.Component {
   }
 
   smallData = () => {
+    this.setState({ data: 1 });
     fetch(
       'http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}',
     )
@@ -19,6 +20,7 @@ class App extends React.Component {
   };
 
   bugData = () => {
+    this.setState({ data: 1 });
     fetch(
       'http://www.filltext.com/?rows=1000&id={number|1000}&firstName={firstName}&delay=3&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}',
     )
@@ -28,7 +30,7 @@ class App extends React.Component {
 
   select = (elem) => {
     this.setState({
-      selected: elem,
+      selected: <Selected selected={elem} />,
     });
   };
 
@@ -42,12 +44,15 @@ class App extends React.Component {
   render() {
     const { data } = this.state;
     const { selected } = this.state;
+    if (data === 1) {
+      return <div className="loader" />;
+    }
     if (data) {
       return (
         <div>
           <Addition add={this.add} />
           <Table data={data} select={this.select} />
-          <Selected selected={selected} />
+          {selected}
         </div>
       );
     }

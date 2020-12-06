@@ -3,32 +3,45 @@ import PropTypes from 'prop-types';
 
 function Selected(props) {
   const { selected } = props;
+  let { address } = selected;
+  if (!address) {
+    address = {
+      streetAddress: 'бездомный',
+      city: 'бездомный',
+      state: 'бездомный',
+      zip: 'бездомный',
+    };
+  }
   return (
-    <table>
-      <thead />
-      <tbody>
-        <tr>
-          <th>id</th>
-          <th>{selected.id}</th>
-        </tr>
-        <tr>
-          <th>firstName</th>
-          <th>{selected.firstName}</th>
-        </tr>
-        <tr>
-          <th>lastName</th>
-          <th>{selected.lastName}</th>
-        </tr>
-        <tr>
-          <th>email</th>
-          <th>{selected.email}</th>
-        </tr>
-        <tr>
-          <th>phone</th>
-          <th>{selected.phone}</th>
-        </tr>
-      </tbody>
-    </table>
+    <div>
+      <body>
+        Выбран пользователь
+        <b>
+          {` ${selected.firstName}`}
+          {` ${selected.lastName}`}
+        </b>
+        <br />
+        Описание:
+        <textarea
+          disabled
+          rows="1"
+          cols="100"
+          value={` ${selected.description}`}
+        />
+        <br />
+        Адрес проживания:
+        <b>{address.streetAddress}</b>
+        <br />
+        Город:
+        <b>{` ${address.city}`}</b>
+        <br />
+        Провинция/штат:
+        <b>{` ${address.state}`}</b>
+        <br />
+        Индекс:
+        <b>{` ${address.zip}`}</b>
+      </body>
+    </div>
   );
 }
 
